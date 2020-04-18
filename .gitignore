@@ -4,6 +4,10 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+### React app ignore ###
+/bank-frontend/node_modules
+/bank-frontend/package-lock.json
+
 ### STS ###
 .apt_generated
 .classpath
