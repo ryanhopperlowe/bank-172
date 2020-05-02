@@ -42,6 +42,7 @@ const ListUserAccounts = () => {
       <Container>
         <h2>All Your Accounts at a Glance</h2>
         <Button onClick={() => history.push('/open')}>Open Account</Button>
+        <hr />
         {accounts.length < 1 && (
           <div>
             <Centered>

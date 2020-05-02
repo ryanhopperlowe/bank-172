@@ -23,6 +23,11 @@ const Header = () => {
       </StyledNavigationList>
       <StyledNavigationList $align={ALIGN.center} />
       <StyledNavigationList $align={ALIGN.right}>
+        {!!auth.currentUser && (
+          <StyledNavigationItem>
+            {`${auth.currentUser.username} (#${auth.currentUser.id})`} 
+          </StyledNavigationItem>
+        )}
         <StyledNavigationItem>
           <NavLink to="/">
             Home
@@ -61,13 +66,6 @@ const Header = () => {
               }}
             >
               Logout
-            </NavLink>
-          </StyledNavigationItem>
-        )}
-        {!!auth.currentUser && (
-          <StyledNavigationItem>
-            <NavLink to="/account">
-              Account
             </NavLink>
           </StyledNavigationItem>
         )}

@@ -28,12 +28,19 @@ public class CustomerController {
 	private CustomerRepository repo;
 	
 	@GetMapping(value = "")
-	public List<Customer> getAll() {
+	public List<Customer> getAll(@RequestBody final Customer user) {
+		Customer temp = this.findCustomer(user.getId());
+		if (temp.getRole() != Customer.ADMIN)
+			throw new RuntimeException("Must be an Admin to access endpoint");
+		
 		return repo.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Customer getOne(@PathVariable Long id) {
+	public Customer getOne(@PathVariable Long id, @RequestBody final Customer user) {
+		if (!this.hasPermission(id, user.getId()))
+			throw new RuntimeException("User " + user.getId() + " does not have access to user " + id);
+		
 		return repo.findById(id)
 				.orElseThrow(() -> new CustomerIdNotFoundException(id));
 	}
@@ -58,6 +65,9 @@ public class CustomerController {
 	
 	@PutMapping(value = "/edit/{id}")
 	public Customer update(@RequestBody final Customer newCustomer, @PathVariable Long id) {
+		if (!this.hasPermission(id, newCustomer.getId()))
+			throw new RuntimeException("User " + id + " does not have access to user " + newCustomer.getId());
+		
 		return repo.findById(id)
 		.map(customer -> {
 			customer.setUsername(newCustomer.getUsername());
@@ -81,14 +91,27 @@ public class CustomerController {
 	}
 	
 	
-	@DeleteMapping(value = "/delete/{id}")
-	public void delete(@PathVariable Long id) {
+	@PostMapping(value = "/delete/{id}")
+	public void delete(@PathVariable Long id, @RequestBody final Customer user) {
+		if (!this.hasPermission(user.getId(), id))
+			throw new RuntimeException("User " + user.getId() + " does not have access to user " + id);
+		
 		repo.deleteById(id);
 	}
 	
 	public Customer findCustomer(Long id) {
 		return repo.findById(id)
 				.orElseThrow(() -> new CustomerIdNotFoundException(id));
+	}
+	
+	public boolean hasPermission(Long targetId, Long retrieverId) {
+		Customer target = this.findCustomer(targetId);
+		Customer retriever = this.findCustomer(retrieverId);
+		return this.hasPermission(target, retriever);
+	}
+	
+	public boolean hasPermission(Customer target, Customer retriever) {
+		return target.getId() == retriever.getId() || retriever.getRole() == Customer.ADMIN;
 	}
 	
 	

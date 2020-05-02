@@ -62,7 +62,6 @@ export const userLogin = (username, pin) => new Promise((resolve, reject) => {
   });
 })
 
-
 export const userLogout = (user) => new Promise((resolve, reject) => {
 
     instance().get(`/customers/logout/${user.id}`)
@@ -80,7 +79,7 @@ export const userLogout = (user) => new Promise((resolve, reject) => {
 });
 
 export const userSignup = (username, pin) => new Promise((resolve, reject) => {
-  instance().post(`/customers/create`, { username, pin, role: 0})
+  instance().post(`/customers/create`, { username, pin, role: 0 })
   .then(response => {
     resolve({
       user: response.data
@@ -90,6 +89,41 @@ export const userSignup = (username, pin) => new Promise((resolve, reject) => {
     console.log(error.toJSON());
     console.log(error.response);
       
+    reject(new Error(error.response.data.message));
+  });
+});
+
+/**
+ * Initiate a delete request for a user's profile
+ * @param {number} id ID number of user to delete
+ * @param {{ id: number }} user User initiating delete request
+ */
+export const userDeleteProfile = (id, user) => new Promise((resolve, reject) => {
+  instance().post(`/customers/delete/${id}`, user)
+  .then(response => {
+    resolve(response);
+  })
+  .catch(error => {
+    console.error(error.response.data);
+    reject(new Error(error.response.data.message));
+  });
+});
+
+
+/**
+ * Initiate an open account request
+ * @param {{id: number, username: string, role: number, pin: number}} user
+ * @returns {Promise<any>} 
+ */
+export const userUpdateProfile = (user) => new Promise((resolve, reject) => {
+  instance().put(`/customers/edit/${user.id}`, user)
+  .then(response => {
+    resolve({
+      user: response.data
+    });
+  })
+  .catch(error => {
+    console.error(error.response.data);
     reject(new Error(error.response.data.message));
   });
 });
@@ -182,7 +216,7 @@ export const accountTransfer = (source, target, amount, user) => new Promise((re
 
 
 /**
- * 
+ * Initiate an open account request
  * @param {{ownerId: number, type: string, amount: number}} account params
  * @returns {Promise<any>} 
  */
