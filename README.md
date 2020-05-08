@@ -19,6 +19,7 @@ For our project, we decided to implement an online banking system. This is an ap
 ### Prerequisites:
 - git
 - node/npm
+- java 8
 
 ### Setup/Build the Project
 - Pull Repository
