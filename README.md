@@ -56,6 +56,8 @@ TABLE `account` (
 ```
 ## Database Queries
 
+All database queries are generated and handled by the middleware.
+
 ## Mid tier APIs
 
 ### Exposed Endpoints
