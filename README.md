@@ -16,11 +16,17 @@ For our project, we decided to implement an online banking system. This is an ap
 
 ## Instructions on how to run the project locally.
 
-### Steps to run locally
+### Prerequisites:
+- git
+- node/npm
+
+### Setup/Build the Project
 - Pull Repository
-- cd to project root directory
-- run "./mvnw clean install"
-- run "./mvnw spring-boot:run"
+- run `cd /path/to/project/root/`
+- run `./mvnw clean install`
+
+### Run the website locally
+- run `./mvnw spring-boot:run`
 
 ## UML Diagrams - Class & Sequence Diagrams
 
@@ -72,5 +78,31 @@ TABLE `account` (
 
 
 ## UI Data Transport -xml, json, etc.
+
+Data transported as JSON 
+
+### Example: 
+
+#### Frontend Request:
+```JS
+instance().post('/customers/login', { 
+	username: 'rhopperlowe', 
+	pin: 1234
+});
+```
+
+#### Server Response:
+```JSON
+{
+  "status": 200,
+  "statusText": "OK",
+  "data": {
+    "id": 1,
+    "username": "rhopperlowe",
+    "pin": 1234,
+    "role": 1
+  }
+}
+```
 
 
