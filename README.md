@@ -25,7 +25,7 @@ For our project, we decided to implement an online banking system. This is an ap
 ## UML Diagrams - Class & Sequence Diagrams
 
 ## Schemas
-```
+```SQL
 TABLE `customer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `pin` int(11) NOT NULL,
@@ -49,6 +49,27 @@ TABLE `account` (
 ## Database Queries
 
 ## Mid tier APIs
+
+### Exposed Endpoints
+
+#### Root: `/api/`
+
+#### Customers Endpoint: `/api/customers/`
+- POST `/api/customers/create` - **body: {userObject}** - create new user profile
+- GET `/api/customers/${id}` - get user profile by id
+- POST `/api/customers/login` - **body: {username, pin}** - login a user
+- GET `/api/customers/logout/${id}` - logout a user
+
+#### Accounts Endpoint: `/api/accounts/`
+- GET `/api/accounts/for/${id}` - get all accounts for a user
+- GET `/api/accounts/${number}` - **body: {userId}** - get account by account number. UserId must match account.owner_id
+- POST `/api/accounts/open` - **body: {type, balance, ownerId}** - open a new account for user with ownerId
+- PUT `/api/accounts/reopen/${number}` - **body: {userId}** - reopen a closed account. UserId must match account.ownerId
+- PUT `/api/accounts/close/${number}` - **body: {userId}** - close an open account. userId must match account.ownerId
+- PUT `/api/accounts/deposit/${number}` - **body: {amount}** - deposit into account
+- PUT `/api/accounts/withdraw/${number}` - **body: {amount, userId}** - withdraw funds from account. UserId must match account.owner_id
+- PUT `/api/accounts/transfer` - **body: {sourceId, targetId, ownerID, amount}** - transfer funds from source account to target account
+
 
 ## UI Data Transport -xml, json, etc.
 
