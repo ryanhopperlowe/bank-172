@@ -31,6 +31,8 @@ For our project, we decided to implement an online banking system. This is an ap
 - Webpage will be available on `http://localhost:8080`
 
 ## UML Diagrams - Class & Sequence Diagrams
+<a><img src="https://i.ibb.co/gzQyq71/Screen-Shot-2020-05-06-at-6-44-41-PM.png" alt="Screen-Shot-2020-05-06-at-6-44-41-PM" border="0"></a>
+<a><img src="https://i.ibb.co/cCFBhHy/Class-Diagram.jpg" alt="Class-Diagram" border="0"></a>
 
 ## Schemas
 ```MySQL
