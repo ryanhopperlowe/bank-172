@@ -33,7 +33,7 @@ For our project, we decided to implement an online banking system. This is an ap
 ## UML Diagrams - Class & Sequence Diagrams
 
 ## Schemas
-```SQL
+```MySQL
 TABLE `customer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `pin` int(11) NOT NULL,
