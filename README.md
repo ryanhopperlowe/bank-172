@@ -25,7 +25,27 @@ For our project, we decided to implement an online banking system. This is an ap
 ## UML Diagrams - Class & Sequence Diagrams
 
 ## Schemas
+```
+TABLE `customer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pin` int(11) NOT NULL,
+  `role` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_irnrrncatp2fvw52vp45j7rlw` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
+TABLE `account` (
+  `number` bigint(20) NOT NULL AUTO_INCREMENT,
+  `amount` decimal(10,2) DEFAULT '0.00',
+  `owner_id` bigint(20) DEFAULT NULL,
+  `status` varchar(1) DEFAULT 'A',
+  `type` varchar(12) DEFAULT 'Checking',
+  PRIMARY KEY (`number`),
+  KEY `ownerId_fk` (`owner_id`),
+  CONSTRAINT `ownerId_fk` FOREIGN KEY (`owner_id`) REFERENCES `customer` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+```
 ## Database Queries
 
 ## Mid tier APIs
