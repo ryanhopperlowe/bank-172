@@ -28,6 +28,7 @@ For our project, we decided to implement an online banking system. This is an ap
 
 ### Run the website locally
 - run `./mvnw spring-boot:run`
+- Webpage will be available on `http://localhost:8080`
 
 ## UML Diagrams - Class & Sequence Diagrams
 
